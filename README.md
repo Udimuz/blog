@@ -1,9 +1,10 @@
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Laravel доступен
 
 ## Learning Laravel
 
 <h3>Админка</h3>
 <ul>
-    <dt>Категории</dt>
+    <li>Категории</li>
+    <li>Теги</li>
 </ul>

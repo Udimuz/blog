@@ -37,7 +37,7 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin', 'prefix'=>'admin'], fun
 	});
 	// Добавляется prefix:
 	Route::group(['namespace'=>'Category', 'prefix'=>'categories'], function(){
-		// Чтобы страница запускалась по адресу "/admin/categories"
+		// Чтобы страница запускалась по адресу "/admin/categories":
 		Route::get('/', 'IndexController')->name('admin.category.index');
 		//Route::get('/create', 'CreateController')->name('admin.category.create');
 		// Попробовал создать ту же сборку роута только в стиле Ларавел 9:
@@ -47,6 +47,18 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin', 'prefix'=>'admin'], fun
 		Route::get('/{category}/edit', 'EditController')->name('admin.category.edit');
 		Route::patch('/{category}', 'UpdateController')->name('admin.category.update');
 		Route::delete('/{category}', 'DeleteController')->name('admin.category.delete');
+		//Route::get('/', function() { return "Route work"; });
+	});
+
+	Route::group(['namespace'=>'Tag', 'prefix'=>'tags'], function(){
+		// Чтобы страница запускалась по адресу "/admin/tags":
+		Route::get('/', 'IndexController')->name('admin.tag.index');
+		Route::get('/create', 'CreateController')->name('admin.tag.create');
+		Route::post('/', 'StoreController')->name('admin.tag.store');
+		Route::get('/{tag}', 'ShowController')->name('admin.tag.show');
+		Route::get('/{tag}/edit', 'EditController')->name('admin.tag.edit');
+		Route::patch('/{tag}', 'UpdateController')->name('admin.tag.update');
+		Route::delete('/{tag}', 'DeleteController')->name('admin.tag.delete');
 		//Route::get('/', function() { return "Route work"; });
 	});
 });
