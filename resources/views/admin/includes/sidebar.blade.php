@@ -3,9 +3,15 @@
     <div class="sidebar">
         <ul class="pt-3 nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
+                <a href="{{ route('admin.post.index') }}" class="nav-link">
+                    <i class="nav-icon fa-solid fa-envelopes-bulk"></i>
+                    <p>Сообщения <span class="badge badge-info right">123</span></p>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{ route('admin.category.index') }}" class="nav-link">
                     <i class="nav-icon far fa-image"></i>
-                    <p>Категории <span class="badge badge-info right">123</span></p>
+                    <p>Категории</p>
                 </a>
             </li>
             <li class="nav-item">

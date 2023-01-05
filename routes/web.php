@@ -32,12 +32,12 @@ Route::group(['namespace'=>'App\Http\Controllers\Main'], function(){
 // prefix добавит везде к ссылке впереди адрес "/admin/". Это чтобы не создавать такие роуты '/admin/post', '/admin/add', а сократить
 Route::group(['namespace'=>'App\Http\Controllers\Admin', 'prefix'=>'admin'], function() {
 	Route::group(['namespace'=>'Main'], function(){
-		// Чтобы страница запускалась по адресу "/admin/"
+		// Для запуска страницы по адресу "/admin/":
 		Route::get('/', 'IndexController');
 	});
 	// Добавляется prefix:
 	Route::group(['namespace'=>'Category', 'prefix'=>'categories'], function(){
-		// Чтобы страница запускалась по адресу "/admin/categories":
+		// Для запуска страницы по адресу "/admin/categories":
 		Route::get('/', 'IndexController')->name('admin.category.index');
 		//Route::get('/create', 'CreateController')->name('admin.category.create');
 		// Попробовал создать ту же сборку роута только в стиле Ларавел 9:
@@ -50,8 +50,22 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin', 'prefix'=>'admin'], fun
 		//Route::get('/', function() { return "Route work"; });
 	});
 
+	Route::group(['namespace'=>'Post', 'prefix'=>'posts'], function(){
+		// Для запуска страницы по адресу "/admin/posts":
+		Route::get('/', 'IndexController')->name('admin.post.index');
+		Route::get('/create', 'CreateController')->name('admin.post.create');
+		//Route::get('/create', function() { return "-2check2-"; })->name('admin.post.create');
+		// Здесь стояло перенаправление на '/', но я решил указать '/store' чтобы точнее видеть. А то со страницей создания путал
+		Route::post('/store', 'StoreController')->name('admin.post.store');
+		//Route::post('/', function() { return "-check-"; });
+		Route::get('/{post}', 'ShowController')->name('admin.post.show');
+		Route::get('/{post}/edit', 'EditController')->name('admin.post.edit');
+		Route::patch('/{post}', 'UpdateController')->name('admin.post.update');
+		Route::delete('/{post}', 'DeleteController')->name('admin.post.delete');
+	});
+
 	Route::group(['namespace'=>'Tag', 'prefix'=>'tags'], function(){
-		// Чтобы страница запускалась по адресу "/admin/tags":
+		// Для запуска страницы по адресу "/admin/tags":
 		Route::get('/', 'IndexController')->name('admin.tag.index');
 		Route::get('/create', 'CreateController')->name('admin.tag.create');
 		Route::post('/', 'StoreController')->name('admin.tag.store');

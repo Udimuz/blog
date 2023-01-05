@@ -1,5 +1,5 @@
 
-Laravel доступен
+Laravel - изучение собирая <b style="color:magenta">Блог</b>.
 
 ## Learning Laravel
 
@@ -7,4 +7,5 @@ Laravel доступен
 <ul>
     <li>Категории</li>
     <li>Теги</li>
+    <li>Сообщения</li>
 </ul>
