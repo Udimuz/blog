@@ -7,9 +7,15 @@ use App\Http\Requests\Admin\Post\StoreRequest;
 use App\Models\Post;
 use Illuminate\Support\Facades\Storage;
 
-class StoreController extends Controller
+class StoreController extends BaseController
 {
-    public function __invoke(StoreRequest $request) {
+	public function __invoke(StoreRequest $request) {
+		$data = $request->validated();
+		$this->service->store($data);
+		return redirect()->route('admin.post.index');
+	}
+
+    public function __invoke_prev(StoreRequest $request) {
 		try {
 			//dd($request);
 			$data = $request->validated();
@@ -39,6 +45,5 @@ class StoreController extends Controller
 			abort(404);	// Прекратить выполнение
 		}
 		return redirect()->route('admin.post.index');
-		//return view('admin.categories.index');
 	}
 }

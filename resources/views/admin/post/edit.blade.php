@@ -34,15 +34,16 @@
                                 <input name="title" type="text" class="form-control" aria-label="name" placeholder="Название сообщения"
                                 value="{{ old('title', $post->title ?? null) }}">
                                 @error('title')
-                                    <div class="text-danger">Необходимо какое-то сообщение</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <textarea id="summernote" name="content">{{ old('content', $post->content ?? null) }}</textarea>
                                 @error('content')
-                                    <div class="text-danger">Это поле необходимо заполнить</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+
 
                             <div class="form-group w-50">
                                 <label for="exampleInputFile">Добавить главное изображение</label>
@@ -60,7 +61,7 @@
                                     <div class="input-group-append"><span class="input-group-text">Загрузка</span></div>
                                 </div>
                                 @error('main_image')
-                                <div class="text-danger">Необходимо добавить изображение</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group w-50">
@@ -79,7 +80,7 @@
                                     <div class="input-group-append"><span class="input-group-text">Загрузка</span></div>
                                 </div>
                                 @error('preview_image')
-                                <div class="text-danger">Необходимо добавить изображение</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group w-50">
@@ -87,19 +88,25 @@
                                 <select name="category_id" class="form-control">
                                     @foreach($categories as $category)
                                         <option value="{{ $category->id }}"
-                                                {{ $category->id == $post->category_id ? ' selected': '' }}
+                                                {{ $category->id == old('category_id', $post->category_id ?? null) ? ' selected': '' }}
                                         >{{ $category->title }}</option>
                                     @endforeach
                                 </select>
+                                @error('category_id')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label>Теги</label>
                                 <div>
                                 <select name="tag_ids[]" class="select2 w-50" data-placeholder="Выберите теги" multiple="multiple">
                                     @foreach($tags as $tag)
-                                        <option {{ is_array($post->tags->pluck('id')->toArray()) && in_array($tag->id, $post->tags->pluck('id')->toArray()) ? ' selected': '' }} value="{{ $tag->id }}">{{ $tag->title }}</option>
+                                        <option {{ is_array(old('tag_ids', $post->tags->pluck('id')->toArray() ?? null)) && in_array($tag->id, old('tag_ids', $post->tags->pluck('id')->toArray() ?? null)) ? ' selected': '' }} value="{{ $tag->id }}">{{ $tag->title }}</option>
                                     @endforeach
                                 </select>
+                                @error('tag_ids')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                                 </div>
                             </div>
                             <div class="form-group">

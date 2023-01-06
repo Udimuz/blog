@@ -7,9 +7,15 @@ use App\Http\Requests\Admin\Post\UpdateRequest;
 use App\Models\Post;
 use Illuminate\Support\Facades\Storage;
 
-class UpdateController extends Controller
+class UpdateController extends BaseController
 {
 	public function __invoke(UpdateRequest $request, Post $post) {
+		$data = $request->validated();
+		$post = $this->service->update($data, $post);
+		return view('admin.post.show', compact('post'));
+	}
+
+	public function __invoke_prev(UpdateRequest $request, Post $post) {
 		try {
 			$data = $request->validated();
 			//dd($data);
@@ -28,7 +34,6 @@ class UpdateController extends Controller
 
 			// Здесь, вместо "attach()" используем метод "sync()", который удаляет абсолютно все привязки у поста с тегами, и добавляет только те, которые мы указали в $tagIds
 			$post->tags()->sync($tagIds);
-
 		} catch (\Exception $exception) {
 			abort(404);	// Прекратить выполнение
 		}

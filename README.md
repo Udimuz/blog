@@ -1,5 +1,5 @@
 
-Laravel - изучение собирая <b style="color:magenta">Блог</b>.
+Laravel - изучение собирая <b><font color="magenta">Блог</font></b>.
 
 ## Learning Laravel
 
@@ -8,4 +8,5 @@ Laravel - изучение собирая <b style="color:magenta">Блог</b>.
     <li>Категории</li>
     <li>Теги</li>
     <li>Сообщения</li>
+    <li>Уведомления об ошибках</li>
 </ul>

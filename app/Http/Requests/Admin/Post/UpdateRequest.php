@@ -35,4 +35,20 @@ class UpdateRequest extends FormRequest
 			'tag_ids.*' => 'nullable|integer|exists:tags,id',
         ];
     }
+
+	// Для каждого атрибута (проверки) можно придумать свои правила-уведомления: Что мы хотим донести до пользователя, необходимые технические требования
+	public function messages()
+	{
+		return [
+			'title.string' => 'Данные должны соответствовать строчному типу',
+			'content.string' => 'Данные должны соответствовать строчному типу',
+			'main_image.required' => 'Это поле необходимо для заполнения',
+			'main_image.file' => 'Необходимо выбрать файл',
+			'preview_image.required' => 'Это поле необходимо для заполнения',
+			'preview_image.file' => 'Необходимо выбрать файл',
+			'category_id.integer' => 'ID категории должно быть числом',
+			'category_id.exists' => 'ID категории должно быть в базе данных',
+			'tag_ids.array' => 'Необходимо отправить массив данных',
+		];
+	}
 }
