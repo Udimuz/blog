@@ -30,7 +30,7 @@ Route::group(['namespace'=>'App\Http\Controllers\Main'], function(){
 
 // Админ-часть сайта:
 // prefix добавит везде к ссылке впереди адрес "/admin/". Это чтобы не создавать такие роуты '/admin/post', '/admin/add', а сократить
-Route::group(['namespace'=>'App\Http\Controllers\Admin', 'prefix'=>'admin', 'middleware'=>['auth','admin', 'verified']], function() {
+Route::group(['namespace'=>'App\Http\Controllers\Admin', 'prefix'=>'admin', 'middleware'=>['auth','admin','verified']], function() {
 	Route::group(['namespace'=>'Main'], function(){
 		// Для запуска страницы по адресу "/admin/":
 		Route::get('/', 'IndexController')->name('admin.main.index');
@@ -90,6 +90,28 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin', 'prefix'=>'admin', 'mid
 	});
 
 });
+
+
+// Кабинет пользователя:
+Route::group(['namespace'=>'App\Http\Controllers\Personal', 'prefix'=>'personal', 'middleware'=>['auth','verified']], function() {
+	// Для запуска страницы по адресу "/personal/main":
+	Route::group(['namespace'=>'Main', 'prefix'=>'main'], function(){
+		Route::get('/', 'IndexController')->name('personal.main.index');
+	});
+	// Для страницы по адресу "/personal/liked":
+	Route::group(['namespace'=>'Liked', 'prefix'=>'liked'], function(){
+		Route::get('/', 'IndexController')->name('personal.liked.index');
+		Route::delete('/{post}', 'DeleteController')->name('personal.liked.delete');
+	});
+	// Для страницы по адресу "/personal/comments":
+	Route::group(['namespace'=>'Comment', 'prefix'=>'comments'], function(){
+		Route::get('/', 'IndexController')->name('personal.comment.index');
+		Route::get('/{comment}/edit', 'EditController')->name('personal.comment.edit');
+		Route::patch('/{comment}', 'UpdateController')->name('personal.comment.update');
+		Route::delete('/{comment}', 'DeleteController')->name('personal.comment.delete');
+	});
+});
+
 
 //Auth::routes();
 Auth::routes(['verify' => true]);

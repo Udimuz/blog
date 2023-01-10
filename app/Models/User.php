@@ -30,11 +30,18 @@ class User extends Authenticatable implements MustVerifyEmail
 //		];
 	}
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+	//	Отношения: многие-ко-многим
+	public function likedPosts()
+	{
+		return $this->belongsToMany(Post::class, 'post_user_likes', 'user_id', 'post_id');
+	}
+
+	//	Отношения: один-ко-многим
+	public function comments()
+	{
+		return $this->hasMany(Comment::class, 'user_id', 'id');
+	}
+
     protected $fillable = [
         'name',
         'email',

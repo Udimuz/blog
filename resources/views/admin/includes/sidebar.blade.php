@@ -17,7 +17,7 @@
             <li class="nav-item">
                 <a href="{{ route('admin.post.index') }}" class="nav-link">
                     <i class="nav-icon fa-solid fa-envelopes-bulk"></i>
-                    <p>Сообщения <span class="badge badge-info right">123</span></p>
+                    <p>Сообщения</p>
                 </a>
             </li>
             <li class="nav-item">
