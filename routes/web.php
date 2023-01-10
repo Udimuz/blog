@@ -30,10 +30,12 @@ Route::group(['namespace'=>'App\Http\Controllers\Main'], function(){
 
 // Админ-часть сайта:
 // prefix добавит везде к ссылке впереди адрес "/admin/". Это чтобы не создавать такие роуты '/admin/post', '/admin/add', а сократить
-Route::group(['namespace'=>'App\Http\Controllers\Admin', 'prefix'=>'admin'], function() {
+Route::group(['namespace'=>'App\Http\Controllers\Admin', 'prefix'=>'admin', 'middleware'=>['auth','admin', 'verified']], function() {
 	Route::group(['namespace'=>'Main'], function(){
 		// Для запуска страницы по адресу "/admin/":
 		Route::get('/', 'IndexController');
+		// Это автоматически перекидывает в Вид:	'resources/views/admin/main/index.blade.php'
+		// потому что так указано в контроллере IndexController
 	});
 	// Добавляется prefix:
 	Route::group(['namespace'=>'Category', 'prefix'=>'categories'], function(){
@@ -65,7 +67,7 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin', 'prefix'=>'admin'], fun
 	});
 
 	Route::group(['namespace'=>'Tag', 'prefix'=>'tags'], function(){
-		// Для запуска страницы по адресу "/admin/tags":
+		// Для запуска страницы по адресу "/admin/tags/":
 		Route::get('/', 'IndexController')->name('admin.tag.index');
 		Route::get('/create', 'CreateController')->name('admin.tag.create');
 		Route::post('/', 'StoreController')->name('admin.tag.store');
@@ -75,8 +77,21 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin', 'prefix'=>'admin'], fun
 		Route::delete('/{tag}', 'DeleteController')->name('admin.tag.delete');
 		//Route::get('/', function() { return "Route work"; });
 	});
+
+	Route::group(['namespace'=>'User', 'prefix'=>'users'], function(){
+		// Для запуска страницы по адресу "/admin/users/":
+		Route::get('/', 'IndexController')->name('admin.user.index');
+		Route::get('/create', 'CreateController')->name('admin.user.create');
+		Route::post('/', 'StoreController')->name('admin.user.store');
+		Route::get('/{user}', 'ShowController')->name('admin.user.show');
+		Route::get('/{user}/edit', 'EditController')->name('admin.user.edit');
+		Route::patch('/{user}', 'UpdateController')->name('admin.user.update');
+		Route::delete('/{user}', 'DeleteController')->name('admin.user.delete');
+	});
+
 });
 
-Auth::routes();
+//Auth::routes();
+Auth::routes(['verify' => true]);
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

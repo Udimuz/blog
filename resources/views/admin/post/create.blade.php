@@ -70,7 +70,7 @@
                             </div>
                             <div class="form-group w-50">
                                 <label>Выберите категорию</label>
-                                <select name="category_id" class="form-control">
+                                <select name="category_id" class="form-control" aria-label="category_id">
                                     @foreach($categories as $category)
                                         <option value="{{ $category->id }}"
                                             {{ $category->id == old('category_id') ? ' selected': '' }}
@@ -84,7 +84,7 @@
                             <div class="form-group">
                                 <label>Теги</label>
                                 <div>
-                                <select name="tag_ids[]" class="select2 w-50" data-placeholder="Выберите теги" multiple="multiple">
+                                <select name="tag_ids[]" class="select2 w-50" data-placeholder="Выберите теги" multiple="multiple" aria-label="tag_ids">
                                     @foreach($tags as $tag)
                                         <option {{ is_array(old('tag_ids')) && in_array($tag->id, old('tag_ids')) ? ' selected': '' }} value="{{ $tag->id }}">{{ $tag->title }}</option>
                                     @endforeach
