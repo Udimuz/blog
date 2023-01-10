@@ -33,7 +33,7 @@ Route::group(['namespace'=>'App\Http\Controllers\Main'], function(){
 Route::group(['namespace'=>'App\Http\Controllers\Admin', 'prefix'=>'admin', 'middleware'=>['auth','admin', 'verified']], function() {
 	Route::group(['namespace'=>'Main'], function(){
 		// Для запуска страницы по адресу "/admin/":
-		Route::get('/', 'IndexController');
+		Route::get('/', 'IndexController')->name('admin.main.index');
 		// Это автоматически перекидывает в Вид:	'resources/views/admin/main/index.blade.php'
 		// потому что так указано в контроллере IndexController
 	});
