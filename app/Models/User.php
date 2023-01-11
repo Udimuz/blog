@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -42,7 +41,12 @@ class User extends Authenticatable implements MustVerifyEmail
 		return $this->hasMany(Comment::class, 'user_id', 'id');
 	}
 
-    protected $fillable = [
+	public function post() {
+		// - имеет один -
+		return $this->hasOne(Post::class, 'id', 'post_id');
+	}
+
+	protected $fillable = [
         'name',
         'email',
         'password',

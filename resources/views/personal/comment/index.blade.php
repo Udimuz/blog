@@ -26,7 +26,7 @@
         <div class="container-fluid">
             <!-- Small boxes (Stat box) -->
             <div class="row">
-                <div class="col-4">
+                <div class="col-6">
                     <div class="card">
                         <div class="card-body table-responsive p-0">
                             <table class="table table-hover text-nowrap">
@@ -34,6 +34,7 @@
                                 <tr class="bg-dark">
                                     <th>ID</th>
                                     <th>Текст</th>
+                                    <th>к какому Сообщению</th>
                                     <th>Действия</th>
                                 </tr>
                                 </thead>
@@ -42,6 +43,7 @@
                                     <tr>
                                         <td>{{ $comment->id }}</td>
                                         <td>{{ $comment->message }}</td>
+                                        <td>{{ $comment->post->title }}</td>
                                         <td class="d-flex">
                                             <a class="mr-3" href="{{ route('personal.comment.edit', $comment->id) }}"><i class="fa-solid fa-pencil text-success"></i></a>
                                             <form action="{{ route('personal.comment.delete', $comment->id) }}" method="POST">

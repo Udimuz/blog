@@ -19,13 +19,12 @@ use Illuminate\Support\Facades\Route;
 
 // Корневая папка сайта:
 Route::group(['namespace'=>'App\Http\Controllers\Main'], function(){
-	Route::get('/', 'IndexController');
-//	Route::get('/posts/create', 'CreateController')->name('post.create');
-//	Route::post('/posts', 'StoreController')->name('post.store');
-//	Route::get('/posts/{post}', 'ShowController')->name('post.show');
-//	Route::get('/posts/{post}/edit', 'EditController')->name('post.edit');
-//	Route::patch('/posts/{post}', 'UpdateController')->name('post.update');
-//	Route::delete('/posts/{post}', 'DestroyController')->name('post.delete');
+	Route::get('/', 'IndexController')->name('main.index');
+});
+
+Route::group(['namespace'=>'App\Http\Controllers\Post', 'prefix'=>'posts'], function(){
+	Route::get('/', 'IndexController')->name('post.index');
+	Route::get('/{post}', 'ShowController')->name('post.show');
 });
 
 // Админ-часть сайта:

@@ -24,4 +24,18 @@ class Post extends Model
 		return $this->belongsToMany(Tag::class, 'post_tags', 'post_id', 'tag_id'); //Связываем foreign - значит "кто", related - значит "с кем имеет отношение"
 	}
 
+	public function category()
+	{
+		return $this->belongsTo(Category::class, 'category_id', 'id');
+	}
+
+	public function likedUsers()
+	{
+		return $this->belongsToMany(User::class, 'post_user_likes', 'post_id', 'user_id');
+	}
+
+	public function comments()
+	{	// Один-ко-многим
+		return $this->hasMany(Comment::class, 'post_id', 'id');
+	}
 }
