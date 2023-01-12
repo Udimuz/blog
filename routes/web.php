@@ -25,6 +25,28 @@ Route::group(['namespace'=>'App\Http\Controllers\Main'], function(){
 Route::group(['namespace'=>'App\Http\Controllers\Post', 'prefix'=>'posts'], function(){
 	Route::get('/', 'IndexController')->name('post.index');
 	Route::get('/{post}', 'ShowController')->name('post.show');
+
+	// Такой вариант сборки (приём) называется "нестед роут"
+	// Для запуска страницы по адресу "/post/10/comments":
+	Route::group(['namespace'=>'Comment', 'prefix'=>'{post}/comments'], function() {
+		Route::post('/', 'StoreController')->name('post.comment.store');
+	});
+
+	// Ещё один вложенный роутинг, для Лайков:
+	Route::group(['namespace'=>'Like', 'prefix'=>'{post}/likes'], function() {
+		Route::post('/', 'StoreController')->name('post.like.store');
+	});
+
+});
+
+Route::group(['namespace'=>'App\Http\Controllers\Category', 'prefix'=>'categories'], function(){
+	// Для запуска страницы по адресу "/categories/":
+	Route::get('/', 'IndexController')->name('category.index');
+
+	// Для запуска страницы по адресу "/categories/3":
+	Route::group(['namespace'=>'Post', 'prefix'=>'{category}'], function() {
+		Route::get('/', 'IndexController')->name('category.post.index');
+	});
 });
 
 // Админ-часть сайта:

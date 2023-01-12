@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-    use HasFactory;
-	use SoftDeletes;
+    use HasFactory, SoftDeletes;
 
 	protected $table = 'posts';
 	// Это правило нужно, чтобы изменять данные в таблице:
 	protected $guarded = false;
+	protected $withCount = ['likedUsers'];	// Отношения которые должны быть посчитаны (что метод ниже в этом коде).
+	// И это во всех записях с Сообщениями добавляет новый атрибут "liked_users_count"
 
 	// Здесь может возникнуть путаница. Для вызова этого метода требуется обращаться "$post->tags()" со скобками.
 	// Если обращаться без скобок "$post->tags" - это уже будет обращение к переменной tags, если такая подключена к этому объекту:

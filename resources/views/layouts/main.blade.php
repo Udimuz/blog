@@ -23,9 +23,14 @@
             </button>
             <div class="collapse navbar-collapse" id="edicaMainNav">
                 <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('main.index') }}">Блог</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('main.index') }}">Блог</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('category.index') }}">Категории</a></li>
+                    @auth()
+                        <li class="nav-item"><a class="nav-link" href="{{ route('personal.main.index') }}">Личный кабинет</a></li>
+                    @endauth
+                    @guest()
+                        <li class="nav-item"><a class="nav-link" href="{{ route('personal.main.index') }}">Войти</a></li>
+                    @endguest
                 </ul>
             </div>
         </nav>
@@ -34,19 +39,7 @@
 
 @yield('content')
 
-<section class="edica-footer-banner-section">
-    <div class="container">
-        <div class="footer-banner" data-aos="fade-up">
-            <h1 class="banner-title">Download it now.</h1>
-            <div class="banner-btns-wrapper">
-                <button class="btn btn-success"> <img src="{{ asset('assets/images/apple@1x.svg') }}" alt="ios" class="mr-2"> App Store</button>
-                <button class="btn btn-success"> <img src="{{ asset('assets/images/android@1x.svg') }}" alt="android" class="mr-2"> Google Play</button>
-            </div>
-            <p class="banner-text">Add some helper text here to explain the finer details of your <br> product or service.</p>
-        </div>
-    </div>
-</section>
-<footer class="edica-footer" data-aos="fade-up">
+<footer class="edica-footer mt-3" data-aos="fade-up">
     <div class="container">
         <div class="row footer-widget-area">
             <div class="col-md-3">
@@ -108,10 +101,10 @@
         </div>
     </div>
 </footer>
-<script src="assets/vendors/popper.js/popper.min.js"></script>
-<script src="assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="assets/vendors/aos/aos.js"></script>
-<script src="assets/js/main.js"></script>
+<script src="{{ asset('assets/vendors/popper.js/popper.min.js') }}"></script>
+<script src="{{ asset('assets/vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/vendors/aos/aos.js') }}"></script>
+<script src="{{ asset('assets/js/main.js') }}"></script>
 <script>
 	AOS.init({
 		duration: 1000

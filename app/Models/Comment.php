@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,5 +18,17 @@ class Comment extends Model
 	public function post() {
 		// - имеет один -
 		return $this->hasOne(Post::class, 'id', 'post_id');
+	}
+
+	public function user()
+	{
+		//	Один ко многим:		- так назвал учитель
+		return $this->belongsTo(User::class, 'user_id', 'id');
+	}
+
+	public function getDateAsCarbonAttribute()
+	{
+		//return $this->created_at;
+		return Carbon::parse($this->created_at);
 	}
 }

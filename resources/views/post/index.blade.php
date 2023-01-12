@@ -11,7 +11,18 @@
                     <div class="blog-post-thumbnail-wrapper">
                         <img src="{{ 'storage/'.$post->preview_image }}" alt="blog post">
                     </div>
-                    <p class="blog-post-category">{{ $post->category->title }}</p>
+                    <div class="d-flex justify-content-between">
+                        <p class="blog-post-category">{{ $post->category->title }}</p>
+                        @auth()
+                        <form action="{{ route('post.like.store', $post->id) }}" method="post">
+                            @csrf
+                            <span>{{ $post->liked_users_count }}</span>
+                            <button type="submit" class="border-0 bg-transparent"><i class="fa{{ auth()->user()->likedPosts->contains($post->id) ? 's' : 'r' }} fa-heart"></i></button>
+                        </form>
+                        @else
+                            <div><span>{{ $post->liked_users_count }}</span> <i class="far fa-heart"></i></div>
+                        @endauth
+                    </div>
                     <a href="{{ route('post.show', $post->id) }}" class="blog-post-permalink">
                         <h6 class="blog-post-title">{{ $post->title }}</h6>
                     </a>
@@ -33,7 +44,18 @@
                             <div class="blog-post-thumbnail-wrapper">
                                 <img src="{{ 'storage/'.$post->preview_image }}" alt="blog post">
                             </div>
-                            <p class="blog-post-category">{{ $post->category->title }}</p>
+                            <div class="d-flex justify-content-between">
+                                <p class="blog-post-category">{{ $post->category->title }}</p>
+                                @auth()
+                                <form action="{{ route('post.like.store', $post->id) }}" method="post">
+                                    @csrf
+                                    <span>{{ $post->liked_users_count }}</span>
+                                    <button type="submit" class="border-0 bg-transparent"><i class="fa{{ auth()->user()->likedPosts->contains($post->id) ? 's' : 'r' }} fa-heart"></i></button>
+                                </form>
+                                @else
+                                    <div><span>{{ $post->liked_users_count }}</span> <i class="far fa-heart"></i></div>
+                                @endauth
+                            </div>
                             <a href="{{ route('post.show', $post->id) }}" class="blog-post-permalink">
                                 <h6 class="blog-post-title">{{ $post->title }}</h6>
                             </a>
@@ -50,9 +72,7 @@
                         <li class="post">
                             <a href="{{ route('post.show', $post->id) }}" class="post-permalink media">
                                 <img src="{{ 'storage/'.$post->preview_image }}" alt="blog post">
-                                <div class="media-body">
-                                    <h6 class="post-title">{{ $post->title }}</h6>
-                                </div>
+                                <div class="media-body"><h6 class="post-title">{{ $post->title }}</h6></div>
                             </a>
                         </li>
                     @endforeach

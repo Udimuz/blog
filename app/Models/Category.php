@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
-    use HasFactory;
-	use SoftDeletes;
+    use HasFactory, SoftDeletes;
 
 	// Делаем привязку к таблице:	Хотя Ларавел сам создаём у себя такую привязку.
 	// Но так указать ещё, будет лучше, чтобы ориентироваться. А в некоторых компаниях это требование.
@@ -17,4 +16,8 @@ class Category extends Model
 	// Это правило нужно, чтобы изменять данные в таблице:
 	protected $guarded = false;
 
+	public function posts()
+	{
+		return $this->hasMany(Post::class, 'category_id', 'id');
+	}
 }
